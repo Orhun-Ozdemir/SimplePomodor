@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#292929"
+    tools:context=".PomodoreFragment">
+
+    <EditText
+        android:id="@+id/et_set_timer"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="50dp"
+        android:inputType="number"
+        android:maxLength="2"
+        android:padding="15dp"
+        android:textColor="@color/white"
+        android:text="1"
+        android:background="@drawable/input_text_design"
+        app:layout_constraintBottom_toTopOf="@+id/pm_cpi"
+        app:layout_constraintEnd_toEndOf="@+id/pm_cpi"
+        app:layout_constraintStart_toStartOf="@+id/pm_cpi">
+
+    </EditText>
+
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/pm_cpi"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:indeterminate="false"
+        app:indicatorSize="250dp"
+        android:indeterminateOnly="false"
+        app:trackThickness="25dp"
+        app:indicatorColor="#AD0000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.498">
+
+    </com.google.android.material.progressindicator.CircularProgressIndicator>
+
+    <Button
+        android:id="@+id/btn_start_timer"
+        android:layout_width="130dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="#008000"
+        android:text="Start Timer"
+        android:textAllCaps="true"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/btn_stop_timer"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pm_cpi">
+
+    </Button>
+
+    <Button
+        android:id="@+id/btn_stop_timer"
+        android:layout_width="130dp"
+        android:layout_height="60dp"
+        android:backgroundTint="#808080"
+        android:text="@string/reset"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_start_timer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_start_timer"
+        app:layout_constraintTop_toTopOf="@+id/btn_start_timer">
+
+    </Button>
+
+    <TextView
+        android:id="@+id/tv_time_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00"
+        android:textSize="40sp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
