@@ -7,6 +7,7 @@ android {
     namespace = "com.example.simplepomodor"
     compileSdk = 33
 
+
     defaultConfig {
         applicationId = "com.example.simplepomodor"
         minSdk = 24
@@ -32,6 +33,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+    dataBinding{
+        enable=true
     }
 }
 
