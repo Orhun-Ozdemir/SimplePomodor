@@ -1,4 +1,4 @@
-package com.example.simplepomodor
+package com.example.simplepomodor.ui.fragments.pomodore
 
 import android.graphics.Color
 import android.os.Bundle
@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import com.example.simplepomodor.R
 import com.google.android.material.progressindicator.CircularProgressIndicator
 
 class PomodoreFragment : Fragment() {
@@ -25,6 +26,7 @@ class PomodoreFragment : Fragment() {
     private var timerRunning:Boolean=false
     private var timerPause:Boolean=false
     private var resetTime:Boolean=false
+    private lateinit var viewModel: PomodoroViewModel
 
 
     override fun onCreateView(
@@ -32,6 +34,7 @@ class PomodoreFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view:View=inflater.inflate(R.layout.fragment_pomodore,container,false)
+        viewModel=PomodoroViewModel()
         cpi=view.findViewById(R.id.pm_cpi)
         btnStartTimer=view.findViewById(R.id.btn_start_timer)
         btnStopTimer=view.findViewById(R.id.btn_stop_timer)
