@@ -70,11 +70,11 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_pomodoro_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/cv_pomodoro_img_holder"
                 android:layout_margin="12dp">
-
             </androidx.recyclerview.widget.RecyclerView>
 
 

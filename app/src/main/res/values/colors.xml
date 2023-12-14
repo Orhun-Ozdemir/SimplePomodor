@@ -2,4 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="shortDefaultPrimaryColor">#4f9296</color>
+    <color name="shortDefaultSecondaryColor">#38848a</color>
+    <color name="pomodoroDefaultPrimaryColor">#C25C5C</color>
+    <color name="pomodoroDefaultSecondaryColor">#ba4849</color>
 </resources>

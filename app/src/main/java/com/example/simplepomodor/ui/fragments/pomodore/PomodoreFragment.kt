@@ -1,143 +1,127 @@
 package com.example.simplepomodor.ui.fragments.pomodore
 
-import android.graphics.Color
+import android.media.MediaPlayer
 import android.os.Bundle
-import android.os.CountDownTimer
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.simplepomodor.R
-import com.google.android.material.progressindicator.CircularProgressIndicator
+import com.example.simplepomodor.adapter.PomodoroCircleCountAdapter
+import com.example.simplepomodor.databinding.FragmentPomodoreBinding
+import com.example.simplepomodor.model.Pomodoro
 
 class PomodoreFragment : Fragment() {
 
-    private lateinit var cpi:CircularProgressIndicator
-    private lateinit var btnStartTimer:Button
-    private lateinit var btnStopTimer:Button
-    private lateinit var etTimeInput:EditText
-    private lateinit var tvTime:TextView
-    private var totalTime=0
-    private var incrementTime: Long = 1000
-    lateinit var countDownTimer: CountDownTimer
-    private var timerRunning:Boolean=false
-    private var timerPause:Boolean=false
-    private var resetTime:Boolean=false
+
+    private lateinit var pomodoro: Pomodoro
     private lateinit var viewModel: PomodoroViewModel
+    private lateinit var pomodoroBinding: FragmentPomodoreBinding
+    private lateinit var pomodoroCircleCountAdapter: PomodoroCircleCountAdapter
+    private lateinit var mediaPlayer: MediaPlayer
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+
+        // TODO: ViewModel araştıulıcak dökümanada neler var bakılıcak
+        //
+        if (arguments?.containsKey("pomodoro") == true) {
+            pomodoro = requireArguments().getSerializable("pomodoro") as Pomodoro
+        }
+        viewModel = PomodoroViewModel(pomodoro,requireActivity().application)
+        //ViewModelProvider(this)[PomodoroViewModel::class.java]
+        super.onCreate(savedInstanceState)
+    }
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view:View=inflater.inflate(R.layout.fragment_pomodore,container,false)
-        viewModel=PomodoroViewModel()
-        cpi=view.findViewById(R.id.pm_cpi)
-        btnStartTimer=view.findViewById(R.id.btn_start_timer)
-        btnStopTimer=view.findViewById(R.id.btn_stop_timer)
-        etTimeInput=view.findViewById(R.id.et_set_timer)
-        tvTime=view.findViewById(R.id.tv_time_view)
-        btnStopTimer.text=getString(R.string.reset)
-        cpi.setProgress(100,false)
+
+        mediaPlayer = MediaPlayer.create(requireContext(), R.raw.clock_sound)
+        pomodoroCircleCountAdapter =
+            PomodoroCircleCountAdapter(requireContext(), pomodoro.pomodoroCircle)
+
+        val view: View = inflater.inflate(R.layout.fragment_pomodore, container, false)
+        pomodoroBinding = FragmentPomodoreBinding.bind(view)
 
 
+        pomodoroBinding.btnStopTimer.text = getString(R.string.reset)
+        pomodoroBinding.rvPomodoroCountCircleList.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        pomodoroBinding.rvPomodoroCountCircleList.adapter = pomodoroCircleCountAdapter
 
-        // Inflate the layout for this fragment
-        btnStartTimer.setOnClickListener{ startTimer() }
-        btnStopTimer.setOnClickListener { resetTimer() }
 
+        bindView()
         return view
     }
 
+    private fun bindView() {
 
+        pomodoroBinding.btnStartTimer.setOnClickListener { viewModel.startTimer() }
+        pomodoroBinding.btnStopTimer.setOnClickListener { viewModel.resetTimer() }
+        pomodoroBinding.ivVolume.setOnClickListener { viewModel.changeMediaPlayerStatus() }
+        pomodoroBinding.ivPomodoroSkipNext.setOnClickListener { viewModel.skipNext() }
 
-
-    private fun startTimer(){
-
-       if(etTimeInput.text.isNotEmpty()) {
-
-           if(!timerRunning) {
-               if (!timerRunning && timerPause) {
-
-                   prepareCountDown((totalTime - cpi.progress).toLong(), incrementTime)
-                   btnStartTimer.text = getString(R.string.pause)
-                   btnStartTimer.setBackgroundColor(Color.GRAY)
-
-               } else {
-                   timerPause = false
-                   timerRunning = true
-                   val time: Int = etTimeInput.text.toString().toInt()
-                   totalTime = time * 60 * 1000
-                   cpi.max = totalTime
-                   prepareCountDown(totalTime.toLong(), incrementTime)
-                   btnStartTimer.text = getString(R.string.pause)
-                   btnStartTimer.setBackgroundColor(Color.GRAY)
-
-               }
-           }else{
-               stopTimer()
-           }
-       }
+        setListenersToView()
     }
 
-    private fun stopTimer(){
-        timerPause=true
-        timerRunning=false
-        countDownTimer.cancel()
-        btnStartTimer.text=getText(R.string.resume)
-        btnStartTimer.setBackgroundColor(Color.parseColor("#428438"))
-    }
+    private fun setListenersToView(){
 
-    private fun resetTimer(){
-
-        cpi.setProgress(0,true)
-        countDownTimer.cancel()
-        tvTime.text="00:00"
-        btnStartTimer.text=getString(R.string.start)
-        btnStartTimer.setBackgroundColor(Color.parseColor("#428438"))
-        timerRunning=false
-
-    }
-
-    private fun prepareCountDown(totalTime:Long, incrementTime:Long)
-    {
-
-        countDownTimer = object : CountDownTimer(totalTime, incrementTime) {
-            override fun onTick(millisUntilFinished: Long) {
-                cpi.setProgress((cpi.max - millisUntilFinished).toInt(), true)
-                var seconds = ((cpi.max - millisUntilFinished).toInt() / 1000) % 60
-                var minutes = ((cpi.max - millisUntilFinished).toInt() / (1000 * 60)) % 60
-                var charcterMinutes=""
-                var charcterSeconds=""
-                if(minutes.toString().length>1){
-                     charcterMinutes=minutes.toString();
-
-                }else{
-                charcterMinutes= "0$minutes"
-                }
-                if(seconds.toString().length>1){
-                    charcterSeconds=seconds.toString();
-
-                }else{
-                    charcterSeconds= "0$seconds"
-                }
-
-
-                tvTime.text=charcterMinutes+":"+charcterSeconds
-            }
-            override fun onFinish() {
-                cpi.setProgress(0, true)
-                countDownTimer.start()
+        viewModel.isSoundOn.observe(viewLifecycleOwner) {
+            if (it) {
+                pomodoroBinding.ivVolume.setImageResource(R.drawable.volume_up)
+                playMedia()
+            } else {
+                pomodoroBinding.ivVolume.setImageResource(R.drawable.volume_off)
+                stopMediaPlayer()
             }
         }
-        countDownTimer.start()
+        viewModel.startTimerText.observe(viewLifecycleOwner) {
+            pomodoroBinding.btnStartTimer.text = getString(it)
+        }
+        viewModel.fullWatch.observe(viewLifecycleOwner) {
+            pomodoroBinding.tvTimeView.text = it
+        }
+        viewModel.totalTime.observe(viewLifecycleOwner) {
+            pomodoroBinding.pmCpi.max = it.toInt()
+        }
+        viewModel.totalProgress.observe(viewLifecycleOwner) {
+            pomodoroBinding.pmCpi.progress = it.toInt()
+            playMedia()
+        }
+        viewModel.primaryColor.observe(viewLifecycleOwner){
+            pomodoroBinding.root.setBackgroundResource(it)
+        }
+        viewModel.pomodoroCurrentStatus.observe(viewLifecycleOwner){
+            pomodoroBinding.tvPomodoroStatus.text=getString(it)
+        }
+        viewModel.secondaryColor.observe(viewLifecycleOwner){
+            pomodoroBinding.pmCpi.trackColor=ContextCompat.getColor(requireContext(),it)
+        }
+        viewModel.pomodoroCircleList.observe(viewLifecycleOwner) {
+            pomodoroCircleCountAdapter = PomodoroCircleCountAdapter(requireContext(), it)
+            pomodoroBinding.rvPomodoroCountCircleList.adapter = pomodoroCircleCountAdapter
+            pomodoroCircleCountAdapter.notifyDataSetChanged()
+        }
     }
 
+    private fun playMedia() {
+        if (mediaPlayer != null && !mediaPlayer.isPlaying) {
+            mediaPlayer.start()
+        }
+    }
 
+    private fun stopMediaPlayer() {
+        mediaPlayer.stop()
+    }
 
+    override fun onStop() {
+        mediaPlayer.release()
+        super.onStop()
+    }
 
     companion object {
         @JvmStatic
