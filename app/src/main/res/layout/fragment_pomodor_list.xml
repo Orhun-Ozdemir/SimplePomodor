@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F2F0F0"
     tools:context=".ui.fragments.pomodoroList.PomodoroListFragment">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -11,7 +12,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
-        android:src="@android:drawable/ic_input_add"
+        android:backgroundTint="@color/pomodoroDefaultPrimaryColor"
+        android:background="@color/white"
+        android:src="@drawable/add_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -36,6 +39,7 @@
                 android:layout_height="100dp"
                 android:layout_margin="12dp"
                 app:cardCornerRadius="5dp"
+                android:visibility="gone"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

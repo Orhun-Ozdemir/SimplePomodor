@@ -10,6 +10,7 @@
     android:layout_marginHorizontal="4dp"
     app:cardBackgroundColor="@color/white"
     android:backgroundTint="@color/white"
+    app:strokeColor="@color/pomodoroDefaultTextColor"
     android:layout_marginTop="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,13 +22,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="15dp"
             android:text="Task Title"
-            android:textColor="@color/black"
+            android:textColor="#0B3692"
+            android:textSize="15sp"
             android:textStyle="bold"
-            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5">
 
         </TextView>
 
@@ -35,15 +39,13 @@
             android:id="@+id/tv_item_pomodoro_title_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="12dp"
-            android:text="Pomodoro Count :"
-            android:textColor="@color/black"
-            android:textSize="10sp"
+            android:layout_marginStart="10dp"
+            android:text=""
+            android:textColor="#0B3692"
+            android:textSize="14sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/tv_item_pomodoro_title"
-            app:layout_constraintTop_toBottomOf="@+id/tv_item_pomodoro_title" />
+            app:layout_constraintStart_toEndOf="@+id/tv_item_pomodoro_title"
+            app:layout_constraintTop_toTopOf="@+id/tv_item_pomodoro_title" />
 
         <TextView
             android:id="@+id/tv_item_pomodoro_count"
@@ -51,7 +53,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:text="TextView"
-            android:textSize="10sp"
+            android:textColor="@color/pomodoroDefaultTextColor"
+            android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_item_pomodoro_title_count"
             app:layout_constraintStart_toEndOf="@+id/tv_item_pomodoro_title_count"
             app:layout_constraintTop_toTopOf="@+id/tv_item_pomodoro_title_count" />
@@ -63,6 +66,7 @@
             android:layout_height="24dp"
             android:layout_marginEnd="8dp"
             android:src="@drawable/play_circle_24"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/iv_item_pomodoro_delete"
             app:layout_constraintTop_toTopOf="parent">

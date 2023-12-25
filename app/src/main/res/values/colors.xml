@@ -6,4 +6,6 @@
     <color name="shortDefaultSecondaryColor">#38848a</color>
     <color name="pomodoroDefaultPrimaryColor">#C25C5C</color>
     <color name="pomodoroDefaultSecondaryColor">#ba4849</color>
+    <color name="pomodoroDefaultTextColor">#BBBBBB</color>
+    <color name="pomodoroSecondMinimaListPrimaryColor">#F2F0F0</color>
 </resources>

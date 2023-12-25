@@ -73,10 +73,10 @@ class PomodoreFragment : Fragment() {
         viewModel.isSoundOn.observe(viewLifecycleOwner) {
             if (it) {
                 pomodoroBinding.ivVolume.setImageResource(R.drawable.volume_up)
-                playMedia()
+                //playMedia()
             } else {
                 pomodoroBinding.ivVolume.setImageResource(R.drawable.volume_off)
-                stopMediaPlayer()
+                //stopMediaPlayer()
             }
         }
         viewModel.startTimerText.observe(viewLifecycleOwner) {
@@ -90,7 +90,7 @@ class PomodoreFragment : Fragment() {
         }
         viewModel.totalProgress.observe(viewLifecycleOwner) {
             pomodoroBinding.pmCpi.progress = it.toInt()
-            playMedia()
+            //playMedia()
         }
         viewModel.primaryColor.observe(viewLifecycleOwner){
             pomodoroBinding.root.setBackgroundResource(it)
