@@ -4,23 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#292929"
-    tools:context=".PomodoreFragment">
+    android:background="@color/pomodoroDefaultPrimaryColor"
+    tools:context=".ui.fragments.pomodore.PomodoreFragment">
+
 
     <EditText
         android:id="@+id/et_set_timer"
         android:layout_width="250dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="50dp"
+        android:background="@drawable/input_text_design"
         android:inputType="number"
         android:maxLength="2"
         android:padding="15dp"
-        android:textColor="@color/white"
         android:text="1"
-        android:background="@drawable/input_text_design"
+        android:textColor="@color/white"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/pm_cpi"
         app:layout_constraintEnd_toEndOf="@+id/pm_cpi"
-        app:layout_constraintStart_toStartOf="@+id/pm_cpi">
+        app:layout_constraintStart_toStartOf="@+id/pm_cpi"
+        app:layout_constraintTop_toTopOf="parent">
 
     </EditText>
 
@@ -29,65 +31,152 @@
         android:id="@+id/pm_cpi"
         android:layout_width="250dp"
         android:layout_height="250dp"
+        android:layout_marginBottom="10dp"
         android:indeterminate="false"
-        app:indicatorSize="250dp"
         android:indeterminateOnly="false"
-        app:trackThickness="25dp"
-        app:indicatorColor="#AD0000"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:indicatorSize="250dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498">
+        app:layout_constraintTop_toTopOf="@+id/guideline8"
+        app:trackColor="@color/pomodoroDefaultSecondaryColor"
+        app:trackCornerRadius="10dp"
+        app:trackThickness="12dp">
 
     </com.google.android.material.progressindicator.CircularProgressIndicator>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_start_timer"
         android:layout_width="130dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="50dp"
-        android:backgroundTint="#008000"
+        android:layout_height="50dp"
+        android:layout_marginStart="-16dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/btn_pomodoro"
         android:text="Start Timer"
         android:textAllCaps="true"
+        android:textColor="@color/black"
         android:textSize="12sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/btn_stop_timer"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pm_cpi">
+        app:layout_constraintBottom_toTopOf="@+id/iv_pomodoro_skip_next"
+        app:layout_constraintStart_toStartOf="@+id/pm_cpi"></androidx.appcompat.widget.AppCompatButton>
 
-    </Button>
-
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_stop_timer"
         android:layout_width="130dp"
-        android:layout_height="60dp"
-        android:backgroundTint="#808080"
+        android:layout_height="50dp"
+        android:layout_marginEnd="-16dp"
+        android:background="@drawable/btn_pomodoro"
         android:text="@string/reset"
-        android:textStyle="bold"
         android:textAllCaps="true"
+
+        android:textColor="@color/black"
         android:textSize="12sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/btn_start_timer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btn_start_timer"
+        app:layout_constraintEnd_toEndOf="@+id/pm_cpi"
         app:layout_constraintTop_toTopOf="@+id/btn_start_timer">
 
-    </Button>
+    </androidx.appcompat.widget.AppCompatButton>
 
     <TextView
         android:id="@+id/tv_time_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="00:00"
-        android:textSize="40sp"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="64sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/pm_cpi"
+        app:layout_constraintEnd_toEndOf="@+id/pm_cpi"
+        app:layout_constraintStart_toStartOf="@+id/pm_cpi"
+        app:layout_constraintTop_toTopOf="@+id/pm_cpi" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_pomodoro_count_circle_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="@+id/pm_cpi"
+        app:layout_constraintStart_toStartOf="@+id/pm_cpi"
+        app:layout_constraintTop_toBottomOf="@+id/tv_pomodoro_count"
+        tools:itemCount="2"
+        tools:listitem="@layout/item_count_circle" />
+
+    <TextView
+        android:id="@+id/tv_pomodoro_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Pomodoro Count"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/pm_cpi"
+        app:layout_constraintStart_toStartOf="@+id/pm_cpi"
+        app:layout_constraintTop_toTopOf="@+id/guideline9" />
+
+    <ImageView
+        android:id="@+id/iv_volume"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/volume_up"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_pomodoro_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="POMODORO"
+        android:textColor="@color/white"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/guideline8"
+        app:layout_constraintEnd_toEndOf="@+id/pm_cpi"
+        app:layout_constraintStart_toStartOf="@+id/pm_cpi"
+        app:layout_constraintTop_toTopOf="@+id/guideline6" />
+
+    <ImageView
+        android:id="@+id/iv_pomodoro_skip_next"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:src="@drawable/skip_next_24"
+        app:layout_constraintBottom_toTopOf="@+id/guideline7"
+        app:layout_constraintEnd_toEndOf="@+id/btn_stop_timer"
+        app:layout_constraintStart_toStartOf="@+id/btn_start_timer" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.6" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

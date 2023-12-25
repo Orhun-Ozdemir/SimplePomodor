@@ -3,9 +3,19 @@
     <style name="Base.Theme.SimplePomodor" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-        <item name="colorPrimary">#292929</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <!--   theme UI controls like checkboxes and text fields -->
+        <item name="colorAccent">@color/white</item>
     </style>
 
 
-    <style name="Theme.SimplePomodor" parent="Base.Theme.SimplePomodor" />
+    <style name="Theme.SimplePomodor" parent="Base.Theme.SimplePomodor">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <!--   theme UI controls like checkboxes and text fields -->
+        <item name="colorAccent">@color/white</item>
+        <item name="android:colorBackground">@color/white</item>
+
+    </style>
 </resources>
