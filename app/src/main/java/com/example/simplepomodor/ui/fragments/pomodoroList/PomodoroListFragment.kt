@@ -2,13 +2,17 @@ package com.example.simplepomodor.ui.fragments.pomodoroList
 
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.LifecycleOwner
@@ -33,14 +37,32 @@ class PomodoroListFragment : Fragment(),LifecycleOwner {
     private lateinit var db: PomodoroDatabase
 
 
+    /*
+
+    onCreate()
+    onCreateView()
+    onViewCreated()
+    onStart()
+    onResume()
+    onPause()
+    onStop()
+    onDestroyView()
+    onDestroy()
+     */
+
+    override fun onAttach(context: Context) {
+        Log.d("EVENT","ATTACH");
+        super.onAttach(context)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             db = activity?.let { it1 -> PomodoroDatabase.newInstance(it1.applicationContext) }!!
             adapter = PomodoroListAdapter(db.pomodoroDao().getPomodoroList(), parentFragmentManager)
 
-
         }
+        Log.d("EVENT","ON_CREATE");
     }
 
 
@@ -49,6 +71,7 @@ class PomodoroListFragment : Fragment(),LifecycleOwner {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.d("EVENT","ON_CREATE_VIEW");
         val view: View = inflater.inflate(R.layout.fragment_pomodor_list, container, false)
 
         fab = view.findViewById(R.id.fab_add_pomodoro)
@@ -57,11 +80,52 @@ class PomodoroListFragment : Fragment(),LifecycleOwner {
         rv.adapter = adapter
 
         fab.setOnClickListener {
+
             // replaceFragment()
             showAddPomodoroDialog()
         }
         return view
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Log.d("EVENT","ON_VIEW_CREATED");
+        super.onViewCreated(view, savedInstanceState)
+    }
+
+    override fun onStart() {
+        Log.d("EVENT","ON_START");
+        super.onStart()
+    }
+
+    override fun onResume() {
+        Log.d("EVENT","RESUME");
+        super.onResume()
+    }
+
+    override fun onPause() {
+        Log.d("EVENT","PAUSE");
+        super.onPause()
+    }
+
+    override fun onStop() {
+        Log.d("EVENT","STOP");
+        super.onStop()
+    }
+
+    override fun onDestroyView() {
+        Log.d("EVENT","ON_DESTROY_VIEW");
+        super.onDestroyView()
+    }
+
+    override fun onDestroy() {
+        Log.d("EVENT","ON_DESTROY");
+        super.onDestroy()
+    }
+    override fun onDetach() {
+        Log.d("EVENT","ON_DETACH");
+        super.onDetach()
+    }
+
 
     private fun replaceFragment() {
 
@@ -144,4 +208,6 @@ class PomodoroListFragment : Fragment(),LifecycleOwner {
 
 
     }
+
+
 }

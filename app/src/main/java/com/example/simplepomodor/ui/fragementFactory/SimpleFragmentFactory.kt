@@ -12,11 +12,9 @@ class SimpleFragmentFactory : FragmentFactory() {
             PomodoreFragment::class.java.name -> {
                 PomodoreFragment()
             }
-
             PomodoroListFragment::class.java.name -> {
                 PomodoroListFragment();
             }
-
             else -> super.instantiate(classLoader, className)
 
 
